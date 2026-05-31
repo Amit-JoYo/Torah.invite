@@ -302,6 +302,70 @@
             margin-bottom: 20px;
         }
 
+        /* סגנונות לחלון ברכות צץ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 16px;
+            width: 85%;
+            max-width: 600px;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #a0aec0;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        html[dir="rtl"] .close-modal { left: 20px; }
+        html[dir="ltr"] .close-modal { right: 20px; }
+        .close-modal:hover { color: #2d3748; }
+        
+        .ideas-btn {
+            background-color: #4e4376;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .ideas-btn:hover { background-color: #2b5876; }
+        
+        .blessing-box {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            white-space: pre-line;
+        }
+
         .footer {
             text-align: center;
             padding: 30px;
@@ -426,6 +490,11 @@
                         <div class="accent-box">
                             <strong>איך זה פוגש אתכם באירוע?</strong> בזמן שהילדים חווים את התחנות, אתם תתכנסו באולם הספורט כדי לקחת חלק פעיל בהכנת ההפתעות: לעטוף את החומשים, לקשט סימנייה אישית ומעוצבת עבור הילד שלכם ולכתוב ברכה חמה שתוענק להם בטקס תחת חופת טלית משותפת.
                         </div>
+                        
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button class="ideas-btn" onclick="openBlessingsModal()"><i class="fa-regular fa-lightbulb"></i> לחצו לקבלת דוגמאות ורעיונות לברכות</button>
+                        </div>
+
                         <div class="warning-box">
                             <i class="fa-solid fa-lightbulb"></i> <strong>המלצה חמה:</strong> כדי שלא תרגישו "תקועים" ללא מילים או תחת לחץ של זמן במהלך האירוע עצמו, אנו מזמינים אתכם לחשוב מראש בבית, או אפילו לכתוב טיוטה קלה, של הברכה והאיחול שתרצו להעניק לילדכם בתוך ספר התורה. מילים מהלב תמיד נשארות כמזכרת נפלאה!
                         </div>
@@ -526,7 +595,7 @@
                 </div>
             </div>
 
-            <!-- פסקת גישור רוסית עממית ויומיומית -->
+            <!-- פסקת גישור רוסית עממית -->
             <div class="bridge-box">
                 <h3>Чествуем родной язык и грамотность 🤍</h3>
                 Для нашей школы этот праздник — очень важный шаг. Это день, когда дети официально становятся самостоятельными читателями. Книга Хумаш, которую они получат, станет их учебником уже в следующем году (во 2-м классе), когда они начнут учиться читать и понимать эти тексты. Через простые и известные истории из книги Бытия (Берешит), мы учим детей важным человеческим ценностям: как общаться в обществе, как уважать других, как развивать мышление и задавать правильные вопросы о мире. Это момент гордости за то, что дети уже умеют читать на иврите и могут прикоснуться к такой богатой и важной части нашей культуры.
@@ -593,6 +662,11 @@
                         <div class="accent-box">
                             <strong>Что будут делать родители?</strong> Пока дети на станциях, вы соберетесь в спортзале, чтобы подготовить для них сюрпризы: обернуть праздничную книгу, украсить красивую закладку и написать личное теплое пожелание. Эту книгу с вашей открыткой внутри дети получат в конце праздника на торжественной церемонии.
                         </div>
+                        
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button class="ideas-btn" onclick="openBlessingsModal()"><i class="fa-regular fa-lightbulb"></i> Нажмите сюда для примеров и идей поздравлений</button>
+                        </div>
+
                         <div class="warning-box">
                             <i class="fa-solid fa-lightbulb"></i> <strong>Совет:</strong> Чтобы не спешить во время самого праздника, подумайте дома заранее, какие слова и пожелания вы хотите написать своему ребенку на память.
                         </div>
@@ -653,8 +727,108 @@
         </div>
     </div>
 
+    <!-- ================= חלון צץ: דוגמאות לברכות ================= -->
+    <div id="blessings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBlessingsModal()">&times;</span>
+            
+            <!-- תוכן בעברית -->
+            <div id="modal-text-he">
+                <h2 style="color: #4e4376; margin-top: 0; margin-bottom: 20px;"><i class="fa-regular fa-pen-to-square"></i> רעיונות ודוגמאות לברכות מחממות</h2>
+                
+                <div class="blessing-box">
+                    <strong>אופציה 1: קטע בחרוזים על ספר בראשית</strong>
+                    
+                    את החומש הראשון היום את מקבלת
+                    ומילדה את הופכת לבוגרת,
+                    תתחילי הכל מהתחלה:
+                    תלמדי על בריאת העולם,
+                    על תוהו ובוהו, יהי אור, חוה ואדם.
+                     
+                    את ספר בראשית גם אנו למדנו,
+                    ומקווים שתיהני ממנו
+                    לפחות כמו שאנו נהנינו.
+                    מספר זה אפשר ללמוד המון:
+                    איך צריך להתנהג, קצת היסטוריה וגם לשון.
+                    בסופו של הלימוד, עלייך לזכור:
+                    הכי חשוב הוא להיות אדם טוב!
+                     
+                    אוהבים אותך מאד ומאחלים בהצלחה,
+                    אמא ואבא
+                </div>
+
+                <div class="blessing-box">
+                    <strong>אופציה 2: ברכה קלילה ומעודדת בחרוזים</strong>
+                    
+                    איזו התרגשות גדולה -
+                    קיבלת את ספר התורה.
+                    זהו ספר מופלא, כל מי שבו ילמד
+                    יבין במהרה עד כמה הוא מיוחד.
+                    שמור עליו, אל תשאיר אותו עזוב.
+                    ואם פתאום תהיה עצוב,
+                    הוא יהיה תמיד אתך,
+                    יכניס שמחה אל תוך לבך.
+                    קיבלת מתנה נפלאה,
+                    ולך אנו מאחלים ברכה והצלחה,
+                    ובכל נתיב אשר תבחר
+                    תצעד תמיד בדרך הישר.
+                </div>
+
+                <div class="blessing-box">
+                    <strong>אופציה 3: ציון דרך אישי עם חומשי התורה</strong>
+                    
+                    ילד יקר שלנו -
+                    כְּמו על הר סִינַי, לִפְני שנִים,
+                    היום אתה מקבל את התורה,
+                    וזהו רגע מקְסים.
+                     
+                    זהו עוד שלב בחיים,
+                    המעִיד כמה גדלת בִמְהרה,
+                    ילד נבון שלנו וחכם -
+                    הנה אתה כבר מתחיל ללמוד תורה!
+                     
+                    אתה תלמד על קורות בני ישראל:
+                    קודם "בראשִית", אחר-כך "שְמות".
+                    ואז תִקְרא בְּ"וַיִקְרא" וְתגלה -
+                    מה קרה להם במִדְבר וְבכל שְאר הדורות,
+                     
+                    והכי חשוב מכל:
+                    שְתִלְמד ושתִנְהג על פי עשרת הדיברות!
+                </div>
+            </div>
+
+            <!-- תוכן ברוסית -->
+            <div id="modal-text-ru" style="display: none;">
+                <h2 style="color: #4e4376; margin-top: 0; margin-bottom: 20px;"><i class="fa-regular fa-pen-to-square"></i> Идеи и примеры душевных пожеланий</h2>
+                
+                <div class="blessing-box">
+                    <strong>Вариант 1: Искреннее и эмоциональное напутствие</strong>
+                    
+                    Дорогой наш ребёнок! Сегодня ты получаешь свою первую важную книгу — Хумаш. Это книга, с которой начинается большая история, но главное — она учит нас быть добрыми, честными и уважать людей вокруг.
+                    
+                    Мы очень гордимся тобой, тем, как ты растешь и учишься новому каждый день. Пусть этот путь открытий будет для тебя интересным и полным радости. Мы всегда рядом, любим тебя!
+                    
+                    Мама и Папа.
+                </div>
+
+                <div class="blessing-box">
+                    <strong>Вариант 2: Короткое праздничное поздравление</strong>
+                    
+                    Наш любимый первоклассник! Поздравляем тебя с получением первой книги Хумаш. Для нас это символ того, каким взрослым и самостоятельным ты становишься.
+                    
+                    Желаем тебе учиться с удовольствием, открывать для себя мир, задавать много вопросов и всегда оставаться хорошим человеком. Удачи тебе во всем!
+                    
+                    С любовью, твоя семья.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let currentLang = 'he';
+
         function switchLanguage(lang, dir) {
+            currentLang = lang;
             document.getElementById('page-root').setAttribute('dir', dir);
             document.getElementById('page-root').setAttribute('lang', lang);
             const buttons = document.querySelectorAll('.lang-btn');
@@ -687,6 +861,33 @@
                 }
             });
         });
+
+        // פונקציות לניהול החלון הצץ של הברכות
+        function openBlessingsModal() {
+            const modal = document.getElementById('blessings-modal');
+            const txtHe = document.getElementById('modal-text-he');
+            const txtRu = document.getElementById('modal-text-ru');
+            
+            if (currentLang === 'he') {
+                txtHe.style.display = 'block';
+                txtRu.style.display = 'none';
+            } else {
+                txtHe.style.display = 'none';
+                txtRu.style.display = 'block';
+            }
+            modal.style.display = 'block';
+        }
+
+        function closeBlessingsModal() {
+            document.getElementById('blessings-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('blessings-modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
 
         function downloadCalendar() {
             const icsFile = 
